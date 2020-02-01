@@ -1,0 +1,22 @@
+{
+  "name": "js-notes",
+  "version": "1.0.0",
+  "description": "JS Notes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desche42/js-notes.git"
+  },
+  "keywords": [
+    "JavaScript"
+  ],
+  "author": "Alejandro Sánchez Pineda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/desche42/js-notes/issues"
+  },
+  "homepage": "https://github.com/desche42/js-notes#readme"
+}
