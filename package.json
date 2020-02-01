@@ -1,6 +1,9 @@
 {
   "name": "js-notes",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.9.0"
+  },
   "description": "JS Notes",
   "main": "index.js",
   "scripts": {
