@@ -36,14 +36,15 @@ class AirTrafficController {
     this.size = 5000;
     this.margins = 200;
     this.dangerZoneSize = 5;
-    this.iteration = 0;
+    this.maxIterations = 120000;
+    this.iteration = 1;
     this.planes = [];
 
     // logs
     this.logNIterations = 1000;
     this.logs = {};
 
-    console.log('Adding planes');
+    console.log(`Adding  ${nPlanes} planes`);
     while(this.planes.length < nPlanes) {
       const newPlane = new Plane(this.size, this.planes.length);
       this.planes.push(newPlane);
@@ -52,27 +53,25 @@ class AirTrafficController {
 
   start() {
     console.log('Simulation started');
-    let startTime = +new Date();
-    while(this.iteration) {
+    this.logs.startTime = +new Date();
+
+    while(this.iteration && this.iteration < this.maxIterations) {
       this._updatePositions();
       const crash = this._checkCrash();
       
-      if (this.iteration % this.logNIterations === 0 || crash) {
-        let now = +new Date();
-        this._addLogs(now - startTime);
-        startTime = now;
-      }
-
-      if (crash) {
-        console.log(`There was a crash in iteration ${this.iteration}`);
-        this.iteration = false;
-      } else {
+      if (!crash) {
         this.planes.forEach(plane => this._checkDirection(plane));
         this.iteration++;
-      }
+      } else {
+        this._addLogs();
+        console.log(`There was a crash in iteration ${this.iteration}`);
+        this.iteration = false;
+      } 
     }
+    
+    console.log('Simulation finished');
 
-    return {[this.planes.length]: this.logs};
+    return {[this.planes.length]: { [this.logs.startTime]: this.logs } };
   }
 
   _checkCrash() {
@@ -148,9 +147,23 @@ class AirTrafficController {
   /**
    * Adds logs
    */
-  _addLogs(diffms) {
-    const speed = Math.round(this.logNIterations/(diffms/1000));
-    console.log(`${this.planes.length} planes. Iteration ${this.iteration}. Speed ${speed} it/s`);
+  _addLogs() {
+    const now = +new Date();
+    const aborted = this.iteration >= this.maxIterations;
+    
+    const log = {
+      endTime: now,
+      totalTime: now - this.logs.startTime,
+      iterations: this.iteration,
+      mapSize: this.size,
+      margins: this.margins,
+      dangerZoneSize: this.dangerZoneSize,
+      planes: this.planes.length,
+      ...(aborted && {aborted})
+    };
+    log.avgSpeed = Math.round(this.iteration*1000/log.totalTime);
+
+    Object.assign(this.logs, log);
   }
 }
 
@@ -178,17 +191,25 @@ class Plane {
   }
 }
 
-
-const N_PLANES = [5];
-
-const results = N_PLANES.reduce((results, nplanes) => {
-  console.log(nplanes)
-  const ATC = new AirTrafficController(nplanes);
-  return Object.assign(results, ATC.start());
-}, {});
-
+// log preparation
 const fs = require('fs');
 const path = require('path');
+const LOGS_PATH = path.join(__dirname,'mediator-atc-logs.json');
+const logs = {};
+if (fs.existsSync(LOGS_PATH)) {
+  Object.assign(logs, JSON.parse(fs.readFileSync(LOGS_PATH)));
+}
 
-fs.writeFileSync(path.join(__dirname,'mediator-atc-logs.json'), JSON.stringify(results, null, 2));
+// do simulations
+const N_PLANES = [3,4,5,6,7,8];
+N_PLANES.map(nPlanes => {
+  const ATC = new AirTrafficController(nPlanes);
+  const results = ATC.start();
+  // ensure destination exists
+  logs[nPlanes] = logs[nPlanes] || {};
+  // assign new data
+  Object.assign(logs[nPlanes], results[nPlanes]);
+  fs.writeFileSync(LOGS_PATH, JSON.stringify(logs, null, 2));
+}, {});
+
 

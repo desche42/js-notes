@@ -1,0 +1,202 @@
+{
+  "3": {
+    "1580652514117": {
+      "startTime": 1580652514117,
+      "endTime": 1580652514356,
+      "totalTime": 239,
+      "iterations": 47610,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 3,
+      "avgSpeed": 199205
+    },
+    "1580652560105": {
+      "startTime": 1580652560105,
+      "endTime": 1580652560733,
+      "totalTime": 628,
+      "iterations": 82102,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 3,
+      "avgSpeed": 130736
+    },
+    "1580652608322": {
+      "startTime": 1580652608322
+    },
+    "1580652610496": {
+      "startTime": 1580652610496,
+      "endTime": 1580652610617,
+      "totalTime": 121,
+      "iterations": 13654,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 3,
+      "avgSpeed": 112843
+    },
+    "1580652642061": {
+      "startTime": 1580652642061,
+      "endTime": 1580652642109,
+      "totalTime": 48,
+      "iterations": 4703,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 3,
+      "avgSpeed": 97979
+    }
+  },
+  "4": {
+    "1580652514373": {
+      "startTime": 1580652514373,
+      "endTime": 1580652515042,
+      "totalTime": 669,
+      "iterations": 62609,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 4,
+      "avgSpeed": 93586
+    },
+    "1580652560752": {
+      "startTime": 1580652560752
+    },
+    "1580652608802": {
+      "startTime": 1580652608802
+    },
+    "1580652610677": {
+      "startTime": 1580652610677,
+      "endTime": 1580652611329,
+      "totalTime": 652,
+      "iterations": 58804,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 4,
+      "avgSpeed": 90190
+    },
+    "1580652642126": {
+      "startTime": 1580652642126,
+      "endTime": 1580652642168,
+      "totalTime": 42,
+      "iterations": 2425,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 4,
+      "avgSpeed": 57738
+    }
+  },
+  "5": {
+    "1580652515043": {
+      "startTime": 1580652515043,
+      "endTime": 1580652515143,
+      "totalTime": 100,
+      "iterations": 2985,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 5,
+      "avgSpeed": 29850
+    },
+    "1580652571963": {
+      "startTime": 1580652571963,
+      "endTime": 1580652572401,
+      "totalTime": 438,
+      "iterations": 10347,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 5,
+      "avgSpeed": 23623
+    },
+    "1580652611330": {
+      "startTime": 1580652611330,
+      "endTime": 1580652611791,
+      "totalTime": 461,
+      "iterations": 12687,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 5,
+      "avgSpeed": 27521
+    },
+    "1580652642169": {
+      "startTime": 1580652642169,
+      "endTime": 1580652643936,
+      "totalTime": 1767,
+      "iterations": 47921,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 5,
+      "avgSpeed": 27120
+    }
+  },
+  "6": {
+    "1580652515143": {
+      "startTime": 1580652515143,
+      "endTime": 1580652521747,
+      "totalTime": 6604,
+      "iterations": 42828,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 6,
+      "avgSpeed": 6485
+    },
+    "1580652611792": {
+      "startTime": 1580652611792
+    },
+    "1580652643954": {
+      "startTime": 1580652643954,
+      "endTime": 1580652648899,
+      "totalTime": 4945,
+      "iterations": 28967,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 6,
+      "avgSpeed": 5858
+    }
+  },
+  "7": {
+    "1580652521747": {
+      "startTime": 1580652521747,
+      "endTime": 1580652541095,
+      "totalTime": 19348,
+      "iterations": 20929,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 7,
+      "avgSpeed": 1082
+    },
+    "1580652648899": {
+      "startTime": 1580652648899,
+      "endTime": 1580652669822,
+      "totalTime": 20923,
+      "iterations": 23805,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 7,
+      "avgSpeed": 1138
+    }
+  },
+  "8": {
+    "1580652669823": {
+      "startTime": 1580652669823,
+      "endTime": 1580652686349,
+      "totalTime": 16526,
+      "iterations": 2495,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 5,
+      "planes": 8,
+      "avgSpeed": 151
+    }
+  }
+}

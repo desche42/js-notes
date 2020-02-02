@@ -24,5 +24,8 @@
   "homepage": "https://github.com/desche42/js-notes#readme",
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": ["*.json"]
   }
 }
