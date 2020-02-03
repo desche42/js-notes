@@ -70,5 +70,14 @@
     "avgTime": 682449,
     "avgIterations": 8273,
     "avgSpeed": "12 iterations/s"
+  },
+  "10": {
+    "abortedCases": 0,
+    "analyzedCases": 1,
+    "totalTime": 2183048,
+    "totalIterations": 1605,
+    "avgTime": 2183048,
+    "avgIterations": 1605,
+    "avgSpeed": "1 iterations/s"
   }
 }

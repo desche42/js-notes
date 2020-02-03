@@ -7076,5 +7076,18 @@
       "planes": 9,
       "avgSpeed": 5
     }
+  },
+  "10": {
+    "1580766746394": {
+      "startTime": 1580766746394,
+      "endTime": 1580768929442,
+      "totalTime": 2183048,
+      "iterations": 1605,
+      "mapSize": 5000,
+      "margins": 200,
+      "dangerZoneSize": 200,
+      "planes": 10,
+      "avgSpeed": 1
+    }
   }
 }

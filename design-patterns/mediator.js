@@ -41,7 +41,10 @@ class AirTrafficController {
     this.planes = [];
 
     // logs
-    this.speakIterations = Math.round(10000/nPlanes);
+    this.speakIterations = ({
+      2: 2000,
+      10: 5
+    })[nPlanes] || 1000;
     this.logs = {};
 
     console.log(`Adding  ${nPlanes} planes`);
