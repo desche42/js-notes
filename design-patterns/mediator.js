@@ -36,12 +36,12 @@ class AirTrafficController {
     this.size = 5000;
     this.margins = 200;
     this.dangerZoneSize = 5;
-    this.maxIterations = 120000;
+    this.maxIterations = 50000;
     this.iteration = 1;
     this.planes = [];
 
     // logs
-    this.logNIterations = 1000;
+    this.speakIterations = Math.round(10000/nPlanes);
     this.logs = {};
 
     console.log(`Adding  ${nPlanes} planes`);
@@ -55,11 +55,11 @@ class AirTrafficController {
     console.log('Simulation started');
     this.logs.startTime = +new Date();
 
-    while(this.iteration && this.iteration < this.maxIterations) {
+    while(this.iteration) {
       this._updatePositions();
       const crash = this._checkCrash();
       
-      if (!crash) {
+      if (!crash && this.iteration < this.maxIterations) {
         this.planes.forEach(plane => this._checkDirection(plane));
         this.iteration++;
       } else {
@@ -67,6 +67,10 @@ class AirTrafficController {
         console.log(`There was a crash in iteration ${this.iteration}`);
         this.iteration = false;
       } 
+
+      if(!(this.iteration % this.speakIterations)) {
+        console.log(`Iteration ${this.iteration} with ${this.planes.length} planes`);
+      }
     }
     
     console.log('Simulation finished');
@@ -194,22 +198,117 @@ class Plane {
 // log preparation
 const fs = require('fs');
 const path = require('path');
-const LOGS_PATH = path.join(__dirname,'mediator-atc-logs.json');
+const LOGS_PATH = path.join(__dirname,'logs/mediator-atc-logs.json');
+const STAT_PATH = path.join(__dirname,'logs/mediator-atc-statistics.json');
+
 const logs = {};
+
 if (fs.existsSync(LOGS_PATH)) {
   Object.assign(logs, JSON.parse(fs.readFileSync(LOGS_PATH)));
 }
 
-// do simulations
-const N_PLANES = [3,4,5,6,7,8];
-N_PLANES.map(nPlanes => {
+
+
+
+
+/**
+ * 
+ * 
+ * 
+ *   SIMULATION
+ * 
+ * 
+ * 
+ * 
+ */
+
+// TEST CASES
+const N_PLANES = [6,7,8,9]
+
+// do simulations twice each case
+N_PLANES.reduce((acc, n) => {
+  acc.push(n);
+  // acc.push(n);
+  return acc;
+}, []).map(nPlanes => {
   const ATC = new AirTrafficController(nPlanes);
-  const results = ATC.start();
+  const results = getCleanLogs(ATC.start());
   // ensure destination exists
   logs[nPlanes] = logs[nPlanes] || {};
   // assign new data
   Object.assign(logs[nPlanes], results[nPlanes]);
-  fs.writeFileSync(LOGS_PATH, JSON.stringify(logs, null, 2));
 }, {});
+
+fs.writeFileSync(LOGS_PATH,  JSON.stringify(logs, null, 2));
+
+fs.writeFileSync(STAT_PATH,  JSON.stringify(getStatistics(logs), null, 2));
+
+
+
+/**
+ * Filters valid logs
+ * @param {Object} logs 
+ */
+
+function getCleanLogs(logs) {
+  return Object.keys(logs).reduce((acc, nPlanes) => {
+    let currentLogs = logs[nPlanes];
+    acc[nPlanes] = {};
+    // check if log has endTime
+    for(let startTime in currentLogs) {
+      if (currentLogs[startTime].endTime) {
+        acc[nPlanes][startTime] = currentLogs[startTime];
+      }
+    }
+    return acc;
+  }, {});
+}
+
+
+
+/**
+ * 
+ * 
+ * 
+ *    FUN STATISTICS
+ * 
+ * 
+ * 
+ */
+
+/**
+ * Some simulation statistics
+ */
+function getStatistics(logs) {
+  const statistics = {};
+  for (let numberOfPlanes in logs) {
+    statistics[numberOfPlanes] = _getCaseStatistics(logs[numberOfPlanes]);
+  }
+
+  return statistics;
+}
+
+function _getCaseStatistics(logs) {
+  const success =  Object.values(logs).filter(i => !i.aborted);
+  const statistics = {
+    abortedCases: Object.values(logs).length - success.length,
+    analyzedCases: success.length,
+    totalTime: 0,
+    totalIterations: 0
+  }
+
+  success.forEach(curr => {
+    const {totalTime, iterations} = curr;
+    statistics.totalTime += totalTime;
+    statistics.totalIterations += iterations;
+  });
+
+  statistics.avgTime = Math.round(statistics.totalTime / statistics.analyzedCases);
+  statistics.avgIterations = Math.round(statistics.totalIterations / statistics.analyzedCases);
+  // iterations / s
+  statistics.avgSpeed = `${Math.round(statistics.totalIterations * 1000 / statistics.totalTime)} iterations/s`;
+
+  return statistics;
+}
 
 
