@@ -19,7 +19,7 @@ function getRandomCoords (mapSize, allowNegative = false) {
   }
 
 function getRandomInt (max, allowNegative) {
-  let n = Math.floor(Math.random()*max);
+  let n = Math.floor(Math.random()*max) + 1;
 
   if (allowNegative) {
     n *= (Math.round(Math.random()) * 2 - 1);
@@ -35,7 +35,7 @@ class AirTrafficController {
   constructor(nPlanes) {
     this.size = 5000;
     this.margins = 200;
-    this.dangerZoneSize = 5;
+    this.dangerZoneSize = 200;
     this.maxIterations = 50000;
     this.iteration = 1;
     this.planes = [];
@@ -61,19 +61,17 @@ class AirTrafficController {
       
       if (!crash && this.iteration < this.maxIterations) {
         this.planes.forEach(plane => this._checkDirection(plane));
+        if(!(this.iteration % this.speakIterations)) {
+          console.log(`${this.planes.length}P: iteration ${this.iteration}.`);
+        }
         this.iteration++;
       } else {
         this._addLogs();
-        console.log(`There was a crash in iteration ${this.iteration}`);
+        console.log(`There was ${crash ? 'a crash' : 'an abortion'} in iteration ${this.iteration}`);
         this.iteration = false;
       } 
 
-      if(!(this.iteration % this.speakIterations)) {
-        console.log(`Iteration ${this.iteration} with ${this.planes.length} planes`);
-      }
     }
-    
-    console.log('Simulation finished');
 
     return {[this.planes.length]: { [this.logs.startTime]: this.logs } };
   }
@@ -86,7 +84,7 @@ class AirTrafficController {
       .map(d => Math.min(Object.values(d)))
       .filter(Boolean).pop();
     
-    return minDistance < this.margins;
+    return minDistance < this.dangerZoneSize;
   }
 
   _updatePositions() {
@@ -105,12 +103,14 @@ class AirTrafficController {
       const isPlaneGoigTooDown = position < this.margins && plane.direction[coord] < 0;
       const isPlaneGoingTooUp = position > this.size - this.margins && plane.direction[coord] > 0;
 
+      const factor = 10;
+
       if (isPlaneGoigTooDown) {
         // console.log(`ATC to ${plane.id}, change +${coord} direction`);
-        plane.updateDirection(coord, 30);
+        plane.updateDirection(coord, 30*factor);
       } else if (isPlaneGoingTooUp) {
         // console.log(`ATC to ${plane.id}, change -${coord} direction`);
-        plane.updateDirection(coord, -30);
+        plane.updateDirection(coord, -30*factor);
       }
     });
   }
@@ -180,7 +180,7 @@ class Plane {
   constructor (mapSize, id) {
     //maybe not need to initialize coords
     this.coords = getRandomCoords(mapSize);
-    this.direction = getRandomCoords(mapSize/8, true)
+    this.direction = getRandomCoords(mapSize/10, true)
     this.id = `P${id}`;
   }
 
@@ -207,10 +207,6 @@ if (fs.existsSync(LOGS_PATH)) {
   Object.assign(logs, JSON.parse(fs.readFileSync(LOGS_PATH)));
 }
 
-
-
-
-
 /**
  * 
  * 
@@ -223,27 +219,27 @@ if (fs.existsSync(LOGS_PATH)) {
  */
 
 // TEST CASES
-const N_PLANES = [6,7,8,9]
+const N_PLANES = [7]
+const N_SIMULATIONS = 10;
 
-// do simulations twice each case
-N_PLANES.reduce((acc, n) => {
-  acc.push(n);
-  // acc.push(n);
-  return acc;
-}, []).map(nPlanes => {
-  const ATC = new AirTrafficController(nPlanes);
-  const results = getCleanLogs(ATC.start());
-  // ensure destination exists
-  logs[nPlanes] = logs[nPlanes] || {};
-  // assign new data
-  Object.assign(logs[nPlanes], results[nPlanes]);
-}, {});
+let simulation = 0;
 
-fs.writeFileSync(LOGS_PATH,  JSON.stringify(logs, null, 2));
+while (simulation++ < N_SIMULATIONS) {
+  console.log(`-------- SIMULATION ${simulation} --------`);
+  // do simulations twice each case
+  N_PLANES.forEach(nPlanes => {
+    const ATC = new AirTrafficController(nPlanes);
+    const results = getCleanLogs(ATC.start());
+    // ensure destination exists
+    logs[nPlanes] = logs[nPlanes] || {};
+    // assign new data
+    Object.assign(logs[nPlanes], results[nPlanes]);
+  }, {});
+
+  fs.writeFileSync(LOGS_PATH,  JSON.stringify(logs, null, 2));
+}
 
 fs.writeFileSync(STAT_PATH,  JSON.stringify(getStatistics(logs), null, 2));
-
-
 
 /**
  * Filters valid logs
