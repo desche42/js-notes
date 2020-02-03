@@ -10,12 +10,12 @@
   },
   "3": {
     "abortedCases": 0,
-    "analyzedCases": 104,
-    "totalTime": 7874,
-    "totalIterations": 493505,
-    "avgTime": 76,
-    "avgIterations": 4745,
-    "avgSpeed": "62675 iterations/s"
+    "analyzedCases": 184,
+    "totalTime": 13756,
+    "totalIterations": 823370,
+    "avgTime": 75,
+    "avgIterations": 4475,
+    "avgSpeed": "59855 iterations/s"
   },
   "4": {
     "abortedCases": 2,
@@ -55,20 +55,20 @@
   },
   "8": {
     "abortedCases": 1,
-    "analyzedCases": 4,
-    "totalTime": 208980,
-    "totalIterations": 33737,
-    "avgTime": 52245,
-    "avgIterations": 8434,
-    "avgSpeed": "161 iterations/s"
+    "analyzedCases": 8,
+    "totalTime": 984123,
+    "totalIterations": 80116,
+    "avgTime": 123015,
+    "avgIterations": 10015,
+    "avgSpeed": "81 iterations/s"
   },
   "9": {
     "abortedCases": 0,
-    "analyzedCases": 5,
-    "totalTime": 2724970,
-    "totalIterations": 49192,
-    "avgTime": 544994,
-    "avgIterations": 9838,
-    "avgSpeed": "18 iterations/s"
+    "analyzedCases": 8,
+    "totalTime": 5459588,
+    "totalIterations": 66182,
+    "avgTime": 682449,
+    "avgIterations": 8273,
+    "avgSpeed": "12 iterations/s"
   }
 }

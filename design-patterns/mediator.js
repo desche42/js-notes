@@ -219,13 +219,13 @@ if (fs.existsSync(LOGS_PATH)) {
  */
 
 // TEST CASES
-const N_PLANES = [7]
-const N_SIMULATIONS = 10;
+const N_PLANES = [10]
+const N_SIMULATIONS = 1;
 
 let simulation = 0;
 
 while (simulation++ < N_SIMULATIONS) {
-  console.log(`-------- SIMULATION ${simulation} --------`);
+  console.log(`-------- SIMULATION ${simulation} / ${N_SIMULATIONS} --------`);
   // do simulations twice each case
   N_PLANES.forEach(nPlanes => {
     const ATC = new AirTrafficController(nPlanes);
@@ -239,7 +239,7 @@ while (simulation++ < N_SIMULATIONS) {
   fs.writeFileSync(LOGS_PATH,  JSON.stringify(logs, null, 2));
 }
 
-fs.writeFileSync(STAT_PATH,  JSON.stringify(getStatistics(logs), null, 2));
+setStatistics(logs)
 
 /**
  * Filters valid logs
@@ -271,6 +271,12 @@ function getCleanLogs(logs) {
  * 
  * 
  */
+
+ function setStatistics(logs) {
+  const stats = getStatistics(logs);
+  fs.writeFileSync(STAT_PATH,  JSON.stringify(stats, null, 2));
+  console.table(stats, ['analyzedCases', 'avgSpeed']);
+ }
 
 /**
  * Some simulation statistics
