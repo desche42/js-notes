@@ -9,7 +9,6 @@
 function counter () {
     let _privateCounter = 0;
 
-    // private method identified with beggining underscore as a convention
     const _incrementCounter = () => _privateCounter++;
     const _speakCounter = () => console.log('Counter is at', _privateCounter);
     
