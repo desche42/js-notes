@@ -1,0 +1,83 @@
+{
+  "2": {
+    "abortedCases": 2,
+    "analyzedCases": 102,
+    "totalTime": 4155,
+    "totalIterations": 455465,
+    "avgTime": 41,
+    "avgIterations": 4465,
+    "avgSpeed": "109619 iterations/s"
+  },
+  "3": {
+    "abortedCases": 0,
+    "analyzedCases": 184,
+    "totalTime": 13756,
+    "totalIterations": 823370,
+    "avgTime": 75,
+    "avgIterations": 4475,
+    "avgSpeed": "59855 iterations/s"
+  },
+  "4": {
+    "abortedCases": 2,
+    "analyzedCases": 102,
+    "totalTime": 18801,
+    "totalIterations": 497174,
+    "avgTime": 184,
+    "avgIterations": 4874,
+    "avgSpeed": "26444 iterations/s"
+  },
+  "5": {
+    "abortedCases": 2,
+    "analyzedCases": 102,
+    "totalTime": 55815,
+    "totalIterations": 506727,
+    "avgTime": 547,
+    "avgIterations": 4968,
+    "avgSpeed": "9079 iterations/s"
+  },
+  "6": {
+    "abortedCases": 4,
+    "analyzedCases": 102,
+    "totalTime": 204748,
+    "totalIterations": 429298,
+    "avgTime": 2007,
+    "avgIterations": 4209,
+    "avgSpeed": "2097 iterations/s"
+  },
+  "7": {
+    "abortedCases": 0,
+    "analyzedCases": 22,
+    "totalTime": 181535,
+    "totalIterations": 66175,
+    "avgTime": 8252,
+    "avgIterations": 3008,
+    "avgSpeed": "365 iterations/s"
+  },
+  "8": {
+    "abortedCases": 1,
+    "analyzedCases": 8,
+    "totalTime": 984123,
+    "totalIterations": 80116,
+    "avgTime": 123015,
+    "avgIterations": 10015,
+    "avgSpeed": "81 iterations/s"
+  },
+  "9": {
+    "abortedCases": 0,
+    "analyzedCases": 8,
+    "totalTime": 5459588,
+    "totalIterations": 66182,
+    "avgTime": 682449,
+    "avgIterations": 8273,
+    "avgSpeed": "12 iterations/s"
+  },
+  "10": {
+    "abortedCases": 0,
+    "analyzedCases": 1,
+    "totalTime": 2183048,
+    "totalIterations": 1605,
+    "avgTime": 2183048,
+    "avgIterations": 1605,
+    "avgSpeed": "1 iterations/s"
+  }
+}
